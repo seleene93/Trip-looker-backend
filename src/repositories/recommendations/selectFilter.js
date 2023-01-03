@@ -28,6 +28,8 @@ const selectFilter = async (queryParams) => {
 
   const [recommendations] = await pool.query(sqlQuery, values);
 
+  console.log(recommendations);
+
   return recommendations;
 };
 

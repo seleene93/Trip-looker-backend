@@ -4,6 +4,9 @@ const express = require("express");
 // Requerimos los controllers de las recomendaciones
 const { getFilter } = require("./controllers/recommendations");
 
+// Requerimos los controllers de los usuarios
+const { createUser } = require("./controllers/users");
+
 // Requerimos los controllers de los votos
 const { getPuntuation } = require("./controllers/votes");
 
@@ -24,6 +27,7 @@ app.get("/votos/:id", getPuntuation);
 app.get("/recomendaciones", getFilter);
 
 // Endpoints de los usuarios
+app.post("/usuarios", createUser);
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);
