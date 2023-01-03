@@ -26,6 +26,15 @@ const getPool = () => {
       database: DATABASE_NAME,
       timezone: "Z",
     });
+  } else if (!pool) {
+    pool = mysql.createPool({
+      connectionLimit: 10,
+      host: DATABASE_HOST,
+      port: DATABASE_PORT,
+      user: DATABASE_USER,
+      password: DATABASE_PASSWORD,
+      timezone: "Z",
+    });
   }
   return pool;
 };

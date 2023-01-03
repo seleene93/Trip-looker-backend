@@ -1,5 +1,6 @@
 const chalk = require("chalk");
 const getPool = require("./getPool");
+require("dotenv").config();
 
 const initDb = async () => {
   try {
@@ -58,7 +59,7 @@ const initDb = async () => {
       CREATE TABLE recomendaciones (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
           titulo VARCHAR(50) NOT NULL,
-          categoria VARCHAR(10) NOT NULL,
+          categoria ENUM('ocio', 'cultural', 'expedición', 'romantico', 'otro') DEFAULT 'otro',
           lugar VARCHAR(80) NOT NULL,
           entradilla VARCHAR(500),
           texto VARCHAR(5000),
