@@ -1,6 +1,12 @@
 require("dotenv").config();
 const express = require("express");
 
+// Requerimos los controllers de las recomendaciones
+const { getFilter } = require("./controllers/recommendations");
+
+// Requerimos los controllers de los votos
+const { getPuntuation } = require("./controllers/votes");
+
 // Requerimos los middlewares
 const { Errors, notFound, validateAuth } = require("./middlewares");
 
@@ -11,7 +17,11 @@ const { PORT } = process.env;
 // Middleware que codifica y parsea el body para que podamos acceder a él en la propiedad req.body
 app.use(express.json());
 
+// Endpoints de los votos
+app.get("/votos/:id", getPuntuation);
+
 // Endpoints de las recomendaciones
+app.get("/recomendaciones", getFilter);
 
 // Endpoints de los usuarios
 
