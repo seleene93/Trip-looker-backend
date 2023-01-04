@@ -2,7 +2,10 @@ require("dotenv").config();
 const express = require("express");
 
 // Requerimos los controllers de las recomendaciones
-const { getFilter } = require("./controllers/recommendations");
+const {
+  getFilter,
+  getRecomendation,
+} = require("./controllers/recommendations");
 
 // Requerimos los controllers de los usuarios
 const { createUser } = require("./controllers/users");
@@ -25,9 +28,14 @@ app.get("/votos/:id", getPuntuation);
 
 // Endpoints de las recomendaciones
 app.get("/recomendaciones", getFilter);
+app.get("/recomendaciones/:id", getRecomendation);
 
 // Endpoints de los usuarios
+
+app.get("/login");
+
 app.post("/usuarios", createUser);
+
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);
