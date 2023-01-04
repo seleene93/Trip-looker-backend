@@ -9,9 +9,10 @@ CREATE TABLE usuarios (
         apellidos VARCHAR(100) NOT NULL,
         email VARCHAR(100) NOT NULL UNIQUE,
         tel INT UNSIGNED,
-        dni CHAR(9) NOT NULL UNIQUE,
+        dni CHAR(10) NOT NULL UNIQUE,
         password VARCHAR(100) NOT NULL,
-        fecha_nac DATE NOT NULL
+        fecha_nac DATE NOT NULL,
+        registrationCode VARCHAR(100)
 	    );
   
 CREATE TABLE direcciones_usuarios (
