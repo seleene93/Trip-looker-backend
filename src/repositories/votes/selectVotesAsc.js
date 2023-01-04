@@ -3,11 +3,13 @@ require("dotenv").config();
 
 const { DATABASE_NAME } = process.env;
 
-const selectFilter = async (queryParams) => {
+const selectVotesDesc = async (queryParams) => {
   const pool = getPool();
 
   // Definimos la consulta de sql inicial, a la que le iremos sumando los filtros que envía el cliente en los query params
-  let sqlQuery = `SELECT * FROM ${DATABASE_NAME}.recomendaciones`;
+  let sqlQuery = `SELECT DISTINCT(r.id), r.titulo, r.categoria, r.lugar, r.entradilla, 
+  (SELECT SUM(voto_positivo) - SUM(voto_negativo) FROM votos WHERE id_recomendacion = r.id) votos 
+  FROM ${DATABASE_NAME}.recomendaciones r INNER JOIN votos v ON r.id = v.id_recomendacion`;
 
   let values = [];
 
@@ -26,11 +28,13 @@ const selectFilter = async (queryParams) => {
     clause = "AND";
   }
 
-  const [recommendations] = await pool.query(sqlQuery, values);
+  let order = " ORDER BY votos ASC";
 
-  console.log(sqlQuery);
+  sqlQuery += order;
+
+  const [recommendations] = await pool.query(sqlQuery, values);
 
   return recommendations;
 };
 
-module.exports = selectFilter;
+module.exports = selectVotesDesc;

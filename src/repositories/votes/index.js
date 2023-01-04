@@ -1,3 +1,4 @@
-const selectPuntuation = require("./selectPuntuation");
+const selectVotesDesc = require("./selectVotesDesc");
+const selectVotesAsc = require("./selectVotesAsc");
 
-module.exports = { selectPuntuation };
+module.exports = { selectVotesDesc, selectVotesAsc };

@@ -50,12 +50,12 @@ const populateDb = async () => {
     console.log(chalk.magentaBright("Insertando votos..."));
 
     await pool.query(`
-        INSERT INTO votos (voto_positivo, voto_negativo, puntuacion_total, id_usuario, id_recomendacion) VALUES 
-        (1, 0, 1, 1, 1),
-        (0, 1, -1, 2, 2),
-        (0, 1, -2, 1, 2),
-        (1, 0, 2, 2, 1),
-        (1, 0, -1, 3, 2);
+        INSERT INTO votos (voto_positivo, voto_negativo, id_usuario, id_recomendacion) VALUES 
+        (1, 0, 1, 1),
+        (0, 1, 2, 2),
+        (0, 1, 1, 2),
+        (1, 0, 2, 1),
+        (1, 0, 3, 2);
     `);
 
     console.log(chalk.green("¡Todo correcto! ✨"));

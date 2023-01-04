@@ -1,3 +1,4 @@
-const getPuntuation = require("./getPuntuation");
+const getVotesDesc = require("./getVotesDesc");
+const getVotesAsc = require("./getVotesAsc");
 
-module.exports = { getPuntuation };
+module.exports = { getVotesDesc, getVotesAsc };

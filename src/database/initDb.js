@@ -91,7 +91,6 @@ const initDb = async () => {
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
           voto_positivo INT UNSIGNED,
           voto_negativo INT UNSIGNED,
-          puntuacion_total INT,
           id_usuario INT UNSIGNED NOT NULL,
           id_recomendacion INT UNSIGNED NOT NULL,
           FOREIGN KEY (id_usuario) REFERENCES usuarios (id)

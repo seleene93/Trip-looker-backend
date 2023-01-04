@@ -5,10 +5,10 @@ const express = require("express");
 const { getFilter } = require("./controllers/recommendations");
 
 // Requerimos los controllers de los usuarios
-const { createUser } = require("./controllers/users");
+const { createUser, loginUser } = require("./controllers/users");
 
 // Requerimos los controllers de los votos
-const { getPuntuation } = require("./controllers/votes");
+const { getVotesDesc, getVotesAsc } = require("./controllers/votes");
 
 // Requerimos los middlewares
 const { Errors, notFound, validateAuth } = require("./middlewares");
@@ -21,13 +21,15 @@ const { PORT } = process.env;
 app.use(express.json());
 
 // Endpoints de los votos
-app.get("/votos/:id", getPuntuation);
+app.get("/votos/desc", getVotesDesc);
+app.get("/votos/asc", getVotesAsc);
 
 // Endpoints de las recomendaciones
 app.get("/recomendaciones", getFilter);
 
 // Endpoints de los usuarios
 app.post("/usuarios", createUser);
+app.post("/login", loginUser);
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);
