@@ -1,4 +1,7 @@
 const getPool = require("../../database/getPool");
+require("dotenv").config();
+
+const { DATABASE_NAME } = process.env;
 
 const insertUser = async (user) => {
   const { nombre, apellidos, email, dni, encryptedPassword, fecha_nac } = user;
@@ -6,7 +9,7 @@ const insertUser = async (user) => {
   const pool = getPool();
 
   const [{ insertId }] = await pool.query(
-    "INSERT INTO usuarios (nombre, apellidos, email, dni, password, fecha_nac) VALUES (?, ?, ?, ?, ?, ?)",
+    `INSERT INTO ${DATABASE_NAME}.usuarios (nombre, apellidos, email, dni, password, fecha_nac) VALUES (?, ?, ?, ?, ?, ?)`,
     [nombre, apellidos, email, dni, encryptedPassword, fecha_nac]
   );
 

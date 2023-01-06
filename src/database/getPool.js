@@ -14,9 +14,10 @@ const {
 } = process.env;
 
 let pool;
-// Cuando llamemos a la función getPool, si no existe un pool todavía, crea uno y nos los da. Si ya existe, nos los da directamente
+// Cuando llamemos a la función getPool, si no existe un pool todavía y DATABASE_NAME es undefined, crea uno y nos los da. Si ya existe, nos los da directamente
+
 const getPool = () => {
-  if (!pool) {
+  if (!pool && !process.env.DATABASE_NAME) {
     pool = mysql.createPool({
       connectionLimit: 10,
       host: DATABASE_HOST,

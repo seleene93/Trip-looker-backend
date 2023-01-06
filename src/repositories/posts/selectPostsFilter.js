@@ -3,15 +3,11 @@ require("dotenv").config();
 
 const { DATABASE_NAME } = process.env;
 
-const selectVotesDesc = async (queryParams) => {
+const selectPostsFilter = async (queryParams) => {
   const pool = getPool();
 
   // Definimos la consulta de sql inicial, a la que le iremos sumando los filtros que envía el cliente en los query params
-  // Seleccionamos los distintos id post con su titulo, categoria, lugar, entradilla, suma sus votos positivos,
-  // suma sus votos negativos y los resta entre sí para obtener la puntuación total
-  let sqlQuery = `SELECT DISTINCT(p.id), p.titulo, p.categoria, p.lugar, p.entradilla, 
-  (SELECT SUM(voto_positivo) - SUM(voto_negativo) FROM ${DATABASE_NAME}.votos WHERE id_post = p.id) votos 
-  FROM ${DATABASE_NAME}.posts p INNER JOIN ${DATABASE_NAME}.votos v ON p.id = v.id_post`;
+  let sqlQuery = `SELECT * FROM ${DATABASE_NAME}.posts`;
 
   let values = [];
 
@@ -30,13 +26,10 @@ const selectVotesDesc = async (queryParams) => {
     clause = "AND";
   }
 
-  let order = ` ORDER BY votos ASC`;
-
-  sqlQuery += order; // nos ordena los votos por orden ascendente
-
+  // Le pasamos a pool.query la consulta de sql que hemos ido creando y el array de valores que sustituyen los interrogantes
   const [posts] = await pool.query(sqlQuery, values);
 
   return posts;
 };
 
-module.exports = selectVotesDesc;
+module.exports = selectPostsFilter;

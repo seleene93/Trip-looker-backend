@@ -1,16 +1,16 @@
-const { selectVotesAsc } = require("../../repositories/votes");
+const { selectPostsFilter } = require("../../repositories/posts");
 const { postFilterSchema } = require("../../schemas/posts");
 const { generateError } = require("../../utils");
 
-const getVotesAsc = async (req, res, next) => {
+const getPostsFilter = async (req, res, next) => {
   try {
     // Validamos lo que envia el cliente por query params
     // (filtros por categoría y lugar)
     // para ver si cumple con los requisitos establecidos en postFilterSchema
     await postFilterSchema.validateAsync(req.query);
 
-    // obtenemos los posts filtrados y en orden de votos ascendentes
-    const posts = await selectVotesAsc(req.query);
+    // obtenemos los posts filtrados
+    const posts = await selectPostsFilter(req.query);
 
     if (posts.length < 1) {
       generateError("No hay resultados en tu búsqueda", 404);
@@ -22,4 +22,4 @@ const getVotesAsc = async (req, res, next) => {
   }
 };
 
-module.exports = getVotesAsc;
+module.exports = getPostsFilter;

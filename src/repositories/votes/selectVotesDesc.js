@@ -7,9 +7,11 @@ const selectVotesDesc = async (queryParams) => {
   const pool = getPool();
 
   // Definimos la consulta de sql inicial, a la que le iremos sumando los filtros que envía el cliente en los query params
-  let sqlQuery = `SELECT DISTINCT(r.id), r.titulo, r.categoria, r.lugar, r.entradilla, 
-  (SELECT SUM(voto_positivo) - SUM(voto_negativo) FROM votos WHERE id_recomendacion = r.id) votos 
-  FROM ${DATABASE_NAME}.recomendaciones r INNER JOIN votos v ON r.id = v.id_recomendacion`;
+  // Seleccionamos los distintos id post con su titulo, categoria, lugar, entradilla, suma sus votos positivos,
+  // suma sus votos negativos y los resta entre sí para obtener la puntuación total
+  let sqlQuery = `SELECT DISTINCT(p.id), p.titulo, p.categoria, p.lugar, p.entradilla, 
+  (SELECT SUM(voto_positivo) - SUM(voto_negativo) FROM ${DATABASE_NAME}.votos WHERE id_post = p.id) votos 
+  FROM ${DATABASE_NAME}.posts p INNER JOIN ${DATABASE_NAME}.votos v ON p.id = v.id_post`;
 
   let values = [];
 
@@ -28,13 +30,13 @@ const selectVotesDesc = async (queryParams) => {
     clause = "AND";
   }
 
-  let order = " ORDER BY votos DESC";
+  let order = " ORDER BY votos DESC"; // nos ordena los votos por orden descendente
 
   sqlQuery += order;
 
-  const [recommendations] = await pool.query(sqlQuery, values);
+  const [posts] = await pool.query(sqlQuery, values);
 
-  return recommendations;
+  return posts;
 };
 
 module.exports = selectVotesDesc;

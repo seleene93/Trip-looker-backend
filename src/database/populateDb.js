@@ -39,10 +39,10 @@ const populateDb = async () => {
         ("Evergreen Terrace", "Springfield", "45500", "EEUU", 2);
     `);
 
-    console.log(chalk.magentaBright("Insertando recomendaciones..."));
+    console.log(chalk.magentaBright("Insertando posts..."));
 
     await pool.query(`
-        INSERT INTO recomendaciones (titulo, categoria, lugar, entradilla, id_usuario) VALUES 
+        INSERT INTO posts (titulo, categoria, lugar, entradilla, id_usuario) VALUES 
         ("Mi viaje a Ibiza", "ocio", "Ibiza", "Genial para salir de fiesta", 1),
         ("Visita por Madrid", "cultural", "Madrid", "Me gustó bastante, pero se nota demasiado estrés", 2);
     `);
@@ -50,7 +50,7 @@ const populateDb = async () => {
     console.log(chalk.magentaBright("Insertando votos..."));
 
     await pool.query(`
-        INSERT INTO votos (voto_positivo, voto_negativo, id_usuario, id_recomendacion) VALUES 
+        INSERT INTO votos (voto_positivo, voto_negativo, id_usuario, id_post) VALUES 
         (1, 0, 1, 1),
         (0, 1, 2, 2),
         (0, 1, 1, 2),

@@ -15,8 +15,8 @@ const initDb = async () => {
     `);
 
     await pool.query("DROP TABLE IF EXISTS votos;");
-    await pool.query("DROP TABLE IF EXISTS img_recomendacion;");
-    await pool.query("DROP TABLE IF EXISTS recomendaciones;");
+    await pool.query("DROP TABLE IF EXISTS img_post;");
+    await pool.query("DROP TABLE IF EXISTS posts;");
     await pool.query("DROP TABLE IF EXISTS direcciones_usuarios;");
     await pool.query("DROP TABLE IF EXISTS usuarios;");
 
@@ -54,10 +54,10 @@ const initDb = async () => {
           );
       `);
 
-    console.log(chalk.magentaBright("Creando tabla de recomendaciones..."));
+    console.log(chalk.magentaBright("Creando tabla de posts..."));
 
     await pool.query(`
-      CREATE TABLE recomendaciones (
+      CREATE TABLE posts (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
           titulo VARCHAR(50) NOT NULL,
           categoria ENUM('ocio', 'cultural', 'expedición', 'romantico', 'otro') DEFAULT 'otro',
@@ -71,14 +71,15 @@ const initDb = async () => {
           );
       `);
 
-    console.log(chalk.magentaBright("Creando tabla de img_recomendacion..."));
+    console.log(chalk.magentaBright("Creando tabla de img_post..."));
 
     await pool.query(`
-      CREATE TABLE img_recomendacion (
+      CREATE TABLE img_post (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          img VARCHAR(100) NOT NULL,
-          id_recomendacion INT UNSIGNED NOT NULL,
-          FOREIGN KEY (id_recomendacion) REFERENCES recomendaciones (id) 
+          nombre VARCHAR(100) NOT NULL,
+          img LONGBLOB NOT NULL,
+          id_post INT UNSIGNED NOT NULL,
+          FOREIGN KEY (id_post) REFERENCES posts (id) 
           ON DELETE CASCADE 
           ON UPDATE CASCADE
           );
@@ -92,11 +93,11 @@ const initDb = async () => {
           voto_positivo INT UNSIGNED,
           voto_negativo INT UNSIGNED,
           id_usuario INT UNSIGNED NOT NULL,
-          id_recomendacion INT UNSIGNED NOT NULL,
+          id_post INT UNSIGNED NOT NULL,
           FOREIGN KEY (id_usuario) REFERENCES usuarios (id)
           ON DELETE CASCADE
           ON UPDATE CASCADE,
-          FOREIGN KEY (id_recomendacion) REFERENCES recomendaciones (id)
+          FOREIGN KEY (id_post) REFERENCES posts (id)
           ON DELETE CASCADE
           ON UPDATE CASCADE
           );
