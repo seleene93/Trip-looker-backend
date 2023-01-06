@@ -1,3 +1,11 @@
-const getPuntuation = require("./getPuntuation");
+const getVotesDesc = require("./getVotesDesc");
+const getVotesAsc = require("./getVotesAsc");
+const postPositiveVote = require("./postPositiveVote");
+const postNegativeVote = require("./postNegativeVote");
 
-module.exports = { getPuntuation };
+module.exports = {
+  getVotesDesc,
+  getVotesAsc,
+  postPositiveVote,
+  postNegativeVote,
+};

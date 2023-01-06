@@ -1,5 +1,6 @@
 const Joi = require("joi");
 
+// Obtenemos el año en el que estamos - 18 años para poner límite de edad al registro
 let date = new Date(Date.now());
 date.setFullYear(date.getFullYear() - 18);
 

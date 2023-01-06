@@ -1,3 +1,11 @@
-const selectPuntuation = require("./selectPuntuation");
+const selectVotesDesc = require("./selectVotesDesc");
+const selectVotesAsc = require("./selectVotesAsc");
+const insertPositiveVote = require("./insertPositiveVote");
+const insertNegativeVote = require("./insertNegativeVote");
 
-module.exports = { selectPuntuation };
+module.exports = {
+  selectVotesDesc,
+  selectVotesAsc,
+  insertPositiveVote,
+  insertNegativeVote,
+};

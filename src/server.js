@@ -1,17 +1,25 @@
 require("dotenv").config();
 const express = require("express");
+const fileUpload = require("express-fileupload");
 
-// Requerimos los controllers de las recomendaciones
+// Requerimos los controllers de los posts
 const {
-  getFilter,
-  getRecomendation,
-} = require("./controllers/recommendations");
+  getPostsFilter,
+  getPost,
+  createPost,
+  deletePost,
+} = require("./controllers/posts");
 
 // Requerimos los controllers de los usuarios
-const { createUser } = require("./controllers/users");
+const { createUser, loginUser } = require("./controllers/users");
 
 // Requerimos los controllers de los votos
-const { getPuntuation } = require("./controllers/votes");
+const {
+  getVotesDesc,
+  getVotesAsc,
+  postPositiveVote,
+  postNegativeVote,
+} = require("./controllers/votes");
 
 // Requerimos los middlewares
 const { Errors, notFound, validateAuth } = require("./middlewares");
@@ -22,20 +30,24 @@ const { PORT } = process.env;
 
 // Middleware que codifica y parsea el body para que podamos acceder a él en la propiedad req.body
 app.use(express.json());
+app.use(fileUpload());
 
 // Endpoints de los votos
-app.get("/votos/:id", getPuntuation);
+app.get("/votos/desc", getVotesDesc);
+app.get("/votos/asc", getVotesAsc);
+app.post("/voto/positivo/:id", validateAuth, postPositiveVote);
+app.post("/voto/negativo/:id", validateAuth, postNegativeVote);
 
-// Endpoints de las recomendaciones
-app.get("/recomendaciones", getFilter);
-app.get("/recomendaciones/:id", getRecomendation);
+// Endpoints de los posts
+app.get("/posts", getPostsFilter);
+app.get("/posts/:id", getPost);
+app.post("/post", validateAuth, createPost);
+app.delete("/posts/:id", validateAuth, deletePost);
 
 // Endpoints de los usuarios
 
-app.get("/login");
-
 app.post("/usuarios", createUser);
-
+app.post("/login", loginUser);
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);

@@ -18,10 +18,10 @@ const validateAuth = (req, res, next) => {
       generateError("El token tiene un formato inválido", 400);
     }
 
-    // Verificamos si el token es válido. Si no lo es, va a saltar un error. Si lo es, vamos a recibir el payload del token, que son los datos que tiene guardados (en el controller de login, podéis ver que cuando generamos el token con jwt.sign(), guardamos en él un objeto llamado tokenPayload que contiene el id del usuario)
+    // Verificamos si el token es válido. Si no lo es, va a saltar un error. Si lo es, vamos a recibir el payload del token, que son los datos que tiene guardados
     const tokenPayload = jwt.verify(token, process.env.JWT_SECRET);
 
-    // Creamos una propiedad auth en el objeto req y guardamos en ella todos los datos del usuario que había guardados en el token. Esto lo hacemos para luego poder acceder a esta información en los controllers, ya que una petición que pase por este middleware y finalmente llegue a un controller, va a tener en req.auth el objeto tokenPayload que contiene el id del usuario logueado
+    // Creamos una propiedad auth en el objeto req y guardamos en ella todos los datos del usuario que había guardados en el token.
     req.auth = tokenPayload;
 
     next();
