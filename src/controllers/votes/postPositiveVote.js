@@ -17,7 +17,7 @@ const postPositiveVote = async (req, res, next) => {
       generateError("El post que estás intentando votar no existe", 404);
     }
 
-    // buscamos si el usuario loggeado ya ha votado
+    // Recogemos el id del voto insertado
     const insertedVoteId = await insertPositiveVote(idUsuario, idPost);
 
     res.status(201).send({

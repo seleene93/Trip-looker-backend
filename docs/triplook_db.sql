@@ -11,8 +11,7 @@ CREATE TABLE usuarios (
         tel INT UNSIGNED,
         dni CHAR(10) NOT NULL UNIQUE,
         password VARCHAR(100) NOT NULL,
-        fecha_nac DATE NOT NULL,
-        registrationCode VARCHAR(100)
+        fecha_nac DATE NOT NULL
 	    );
   
 CREATE TABLE direcciones_usuarios (
@@ -54,7 +53,6 @@ CREATE TABLE votos (
 		id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         voto_positivo INT UNSIGNED,
         voto_negativo INT UNSIGNED,
-        puntuacion_total INT,
         id_usuario INT UNSIGNED NOT NULL,
         id_post INT UNSIGNED NOT NULL,
         FOREIGN KEY (id_usuario) REFERENCES usuarios (id)

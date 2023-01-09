@@ -32,10 +32,6 @@ const createUser = async (req, res, next) => {
       generateError("Ya existe un usuario con ese dni", 400);
     }
 
-    // Generamos un código de registro aleatorio. Los usuarios que tienen un registrationCode en la DB, están pendiente de activar.
-    // Los que no tengan un registrationCode, ya están activados.
-    // const registrationCode = uuid.v4();
-
     // Encriptamos la contraseña del usuario (nunca se guarda en la DB sin encriptar)
     const encryptedPassword = await bcrypt.hash(password, 10);
 
@@ -49,13 +45,6 @@ const createUser = async (req, res, next) => {
       fecha_nac,
       // registrationCode,
     });
-
-    //   await sendMail(
-    //     "¡Welcome to Travels APP!",
-    //     `<p>Thanks for joining travelers! :D</p>
-    //      <a href="http://localhost:8080/activate/${registrationCode}">Activate your account</a>`,
-    //     email
-    //   );
 
     res
       .status(201)

@@ -58,6 +58,14 @@ const populateDb = async () => {
         (1, 0, 3, 2);
     `);
 
+    console.log(chalk.magentaBright("Insertando comentarios..."));
+
+    await pool.query(`
+        INSERT INTO comentarios (comentario, id_post, id_usuario) VALUES 
+        ("que bonito oye", 2, 1),
+        ("pues no me ha gustado nada", 1, 2);
+    `);
+
     console.log(chalk.green("¡Todo correcto! ✨"));
   } catch (error) {
     console.error(error.message);

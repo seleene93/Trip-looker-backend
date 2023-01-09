@@ -11,7 +11,7 @@ const {
 } = require("./controllers/posts");
 
 // Requerimos los controllers de los usuarios
-const { createUser, loginUser } = require("./controllers/users");
+const { createUser, loginUser, editUser } = require("./controllers/users");
 
 // Requerimos los controllers de los votos
 const {
@@ -20,6 +20,9 @@ const {
   postPositiveVote,
   postNegativeVote,
 } = require("./controllers/votes");
+
+// Requerimos el controller de los comentarios
+const { postComent } = require("./controllers/coments");
 
 // Requerimos los middlewares
 const { Errors, notFound, validateAuth } = require("./middlewares");
@@ -45,9 +48,12 @@ app.post("/post", validateAuth, createPost);
 app.delete("/posts/:id", validateAuth, deletePost);
 
 // Endpoints de los usuarios
-
 app.post("/usuarios", createUser);
 app.post("/login", loginUser);
+app.put("/usuarios", validateAuth, editUser);
+
+// Endpoints de los comentarios
+app.post("/comentario/:id", validateAuth, postComent);
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);
