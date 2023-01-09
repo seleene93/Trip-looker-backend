@@ -7,7 +7,7 @@ const validateAuth = (req, res, next) => {
     const { authorization } = req.headers;
 
     if (!authorization) {
-      generateError("Missing authorization header", 400);
+      generateError("Necesitas autorización", 400);
     }
 
     // Separamos la authorization en dos partes, la primera es el tipo de token y la segunda el token (los tokens siempre tienen un formato así: "type token". Por ejemplo: "Bearer xxxxx")

@@ -14,6 +14,7 @@ const initDb = async () => {
     USE trip_looker;
     `);
 
+    await pool.query("DROP TABLE IF EXISTS comentarios");
     await pool.query("DROP TABLE IF EXISTS votos;");
     await pool.query("DROP TABLE IF EXISTS img_post;");
     await pool.query("DROP TABLE IF EXISTS posts;");
@@ -31,8 +32,7 @@ const initDb = async () => {
           tel INT UNSIGNED,
           dni CHAR(10) NOT NULL UNIQUE,
           password VARCHAR(100) NOT NULL,
-          fecha_nac DATE NOT NULL,
-          registrationCode VARCHAR(100)
+          fecha_nac DATE NOT NULL
           );
       `);
 
@@ -99,6 +99,23 @@ const initDb = async () => {
           ON UPDATE CASCADE,
           FOREIGN KEY (id_post) REFERENCES posts (id)
           ON DELETE CASCADE
+          ON UPDATE CASCADE
+          );
+      `);
+
+    console.log(chalk.magentaBright("Creando tabla de comentarios..."));
+
+    await pool.query(`
+      CREATE TABLE comentarios (
+          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+          comentario VARCHAR(500),
+          id_post INT UNSIGNED NOT NULL,
+          id_usuario INT UNSIGNED NOT NULL,
+          FOREIGN KEY (id_post) REFERENCES posts (id) 
+          ON DELETE CASCADE 
+          ON UPDATE CASCADE,
+          FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
+          ON DELETE CASCADE 
           ON UPDATE CASCADE
           );
       `);

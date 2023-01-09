@@ -21,7 +21,8 @@ const createUserSchema = Joi.object({
     "string.max": "El email no puede contener más de 100 caracteres",
     "any.required": "El email es obligatorio",
   }),
-  dni: Joi.string().max(10).required().messages({
+  dni: Joi.string().min(10).max(10).required().messages({
+    "string.min": "El dni debe contener 10 caracteres",
     "string.max": "El dni no puede contener más de 10 caracteres",
     "any.required": "El dni es obligatorio",
   }),
