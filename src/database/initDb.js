@@ -18,7 +18,7 @@ const initDb = async () => {
     await pool.query("DROP TABLE IF EXISTS votos;");
     await pool.query("DROP TABLE IF EXISTS img_post;");
     await pool.query("DROP TABLE IF EXISTS posts;");
-    await pool.query("DROP TABLE IF EXISTS direcciones_usuarios;");
+    await pool.query("DROP TABLE IF EXISTS img_usuario");
     await pool.query("DROP TABLE IF EXISTS usuarios;");
 
     console.log(chalk.magentaBright("Creando tabla de usuarios..."));
@@ -29,24 +29,20 @@ const initDb = async () => {
           nombre VARCHAR(50) NOT NULL,
           apellidos VARCHAR(100) NOT NULL,
           email VARCHAR(100) NOT NULL UNIQUE,
-          tel INT UNSIGNED,
+          ciudad VARCHAR(50) NOT NULL,
           dni CHAR(10) NOT NULL UNIQUE,
           password VARCHAR(100) NOT NULL,
           fecha_nac DATE NOT NULL
           );
       `);
 
-    console.log(
-      chalk.magentaBright("Creando tabla de direcciones_usuarios...")
-    );
+    console.log(chalk.magentaBright("Creando tabla de img_usuario..."));
 
     await pool.query(`
-      CREATE TABLE direcciones_usuarios (
+      CREATE TABLE img_usuario (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          direccion VARCHAR(100),
-          ciudad VARCHAR(100),
-          cp MEDIUMINT,
-          pais VARCHAR(50),
+          nombre VARCHAR(100) NOT NULL,
+          img LONGBLOB NOT NULL,
           id_usuario INT UNSIGNED NOT NULL,
           FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
           ON DELETE CASCADE 

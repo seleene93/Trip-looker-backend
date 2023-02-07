@@ -6,12 +6,18 @@ const fileUpload = require("express-fileupload");
 const {
   getPostsFilter,
   getPost,
+  getPosts,
   createPost,
   deletePost,
 } = require("./controllers/posts");
 
 // Requerimos los controllers de los usuarios
-const { createUser, loginUser, editUser } = require("./controllers/users");
+const {
+  createUser,
+  loginUser,
+  editUser,
+  editUserImg,
+} = require("./controllers/users");
 
 // Requerimos los controllers de los votos
 const {
@@ -22,7 +28,8 @@ const {
 } = require("./controllers/votes");
 
 // Requerimos el controller de los comentarios
-const { postComent } = require("./controllers/coments");
+const { postComent } = require("./controllers/comments");
+const { getComment } = require("./controllers/comments");
 
 // Requerimos los middlewares
 const { Errors, notFound, validateAuth } = require("./middlewares");
@@ -44,6 +51,7 @@ app.post("/voto/negativo/:id", validateAuth, postNegativeVote);
 // Endpoints de los posts
 app.get("/posts", getPostsFilter);
 app.get("/posts/:id", getPost);
+app.get("/posts", validateAuth, getPosts);
 app.post("/post", validateAuth, createPost);
 app.delete("/posts/:id", validateAuth, deletePost);
 
@@ -51,9 +59,11 @@ app.delete("/posts/:id", validateAuth, deletePost);
 app.post("/usuarios", createUser);
 app.post("/login", loginUser);
 app.put("/usuarios", validateAuth, editUser);
+app.put("/imgusuario", validateAuth, editUserImg);
 
 // Endpoints de los comentarios
 app.post("/comentario/:id", validateAuth, postComent);
+app.get("/comentarios/:id", getComment);
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);
