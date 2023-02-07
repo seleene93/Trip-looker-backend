@@ -14,17 +14,15 @@ CREATE TABLE usuarios (
         fecha_nac DATE NOT NULL
 	    );
   
-CREATE TABLE direcciones_usuarios (
-        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        direccion VARCHAR(100),
-        ciudad VARCHAR(100),
-        cp MEDIUMINT,
-        pais VARCHAR(50),
-        id_usuario INT UNSIGNED NOT NULL,
-        FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
-        ON DELETE CASCADE 
-        ON UPDATE CASCADE
-        );
+CREATE TABLE img_usuario (
+          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+          nombre VARCHAR(100) NOT NULL,
+          img LONGBLOB NOT NULL,
+          id_usuario INT UNSIGNED NOT NULL,
+          FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
+          ON DELETE CASCADE 
+          ON UPDATE CASCADE
+          );
         
 CREATE TABLE posts (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

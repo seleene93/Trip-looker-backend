@@ -10,7 +10,6 @@ const createUserSchema = Joi.object({
     "string.max": "El nombre no pueden contener más de 20 caracteres",
     "any.required": "El nombre es obligatorio",
   }),
-
   apellidos: Joi.string().min(10).max(100).required().messages({
     "string.min": "Los apellidos deben tener como mínimo 10 caracteres",
     "string.max": "Los apellidos no pueden contener más de 100 caracteres",
@@ -20,6 +19,11 @@ const createUserSchema = Joi.object({
     "string.min": "El email debe contener como mínimo 5 caracteres",
     "string.max": "El email no puede contener más de 100 caracteres",
     "any.required": "El email es obligatorio",
+  }),
+  ciudad: Joi.string().min(5).max(20).required().messages({
+    "string.min": "Ciudad debe contener como mínimo 5 caracteres",
+    "string.max": "Ciudad no puede contener más de 20 caracteres",
+    "any.required": "Ciudad es obligatorio",
   }),
   dni: Joi.string().min(10).max(10).required().messages({
     "string.min": "El dni debe contener 10 caracteres",

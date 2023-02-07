@@ -16,8 +16,8 @@ const populateDb = async () => {
     `);
 
     await pool.query(`
-        INSERT INTO usuarios (nombre, apellidos, email, tel, dni, password, fecha_nac) VALUES 
-        ("Paco", "Martínez Soria", "paco@email.com", "661234567", "7000000-A", "${await bcrypt.hash(
+        INSERT INTO usuarios (nombre, apellidos, email, ciudad, dni, password, fecha_nac) VALUES 
+        ("Paco", "Martínez Soria", "paco@email.com", "Madrid", "7000000-A", "${await bcrypt.hash(
           "123456",
           10
         )}", "1997-07-16"),
@@ -29,14 +29,6 @@ const populateDb = async () => {
           "123456",
           10
         )}", "1961-05-12")
-    `);
-
-    console.log(chalk.magentaBright("Insertando direcciones usuarios..."));
-
-    await pool.query(`
-        INSERT INTO direcciones_usuarios (direccion, ciudad, cp, pais, id_usuario) VALUES 
-        ("P.Sherman Calle Wallabe", "Sydney", "45300", "Australia", 1),
-        ("Evergreen Terrace", "Springfield", "45500", "EEUU", 2);
     `);
 
     console.log(chalk.magentaBright("Insertando posts..."));

@@ -18,13 +18,11 @@ const editUserSchema = Joi.object({
     "string.max": "El email no puede contener más de 100 caracteres",
     "string.email": "Debe introducir un formato de email válido",
   }),
-  tel: Joi.string()
-    .length(9)
-    .regex(/^[0-9]{9}$/)
-    .messages({
-      "string.length": "El teléfono debe ser de 9 dígitos",
-      "string.pattern.base": "El teléfono no tiene el formato adecuado",
-    }),
+  ciudad: Joi.string().min(5).max(20).required().messages({
+    "string.min": "Ciudad debe contener como mínimo 5 caracteres",
+    "string.max": "Ciudad no puede contener más de 20 caracteres",
+    "any.required": "Ciudad es obligatorio",
+  }),
   password: Joi.string().min(5).max(100).messages({
     "string.min": "La contraseña debe contener como mínimo 5 caracteres",
   }),
