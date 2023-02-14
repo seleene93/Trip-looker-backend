@@ -31,22 +31,9 @@ const initDb = async () => {
           email VARCHAR(100) NOT NULL UNIQUE,
           ciudad VARCHAR(50) NOT NULL,
           dni CHAR(10) NOT NULL UNIQUE,
+          avatar VARCHAR(50),
           password VARCHAR(100) NOT NULL,
           fecha_nac DATE NOT NULL
-          );
-      `);
-
-    console.log(chalk.magentaBright("Creando tabla de img_usuario..."));
-
-    await pool.query(`
-      CREATE TABLE img_usuario (
-          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          nombre VARCHAR(100) NOT NULL,
-          img LONGBLOB NOT NULL,
-          id_usuario INT UNSIGNED NOT NULL,
-          FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
-          ON DELETE CASCADE 
-          ON UPDATE CASCADE
           );
       `);
 
@@ -73,7 +60,6 @@ const initDb = async () => {
       CREATE TABLE img_post (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
           nombre VARCHAR(100) NOT NULL,
-          img LONGBLOB NOT NULL,
           id_post INT UNSIGNED NOT NULL,
           FOREIGN KEY (id_post) REFERENCES posts (id) 
           ON DELETE CASCADE 

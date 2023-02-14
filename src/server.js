@@ -1,12 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const cors = require("cors");
 
 // Requerimos los controllers de los posts
 const {
   getPostsFilter,
   getPost,
-  getPosts,
+  getPostsByUser,
   createPost,
   deletePost,
 } = require("./controllers/posts");
@@ -17,6 +18,7 @@ const {
   loginUser,
   editUser,
   editUserImg,
+  getUserLogged,
 } = require("./controllers/users");
 
 // Requerimos los controllers de los votos
@@ -39,31 +41,34 @@ const app = express();
 const { PORT } = process.env;
 
 // Middleware que codifica y parsea el body para que podamos acceder a él en la propiedad req.body
-app.use(express.json());
 app.use(fileUpload());
+app.use(cors());
+app.use(express.json());
+app.use(express.static(process.env.UPLOADS_DIR));
 
 // Endpoints de los votos
 app.get("/votos/desc", getVotesDesc);
 app.get("/votos/asc", getVotesAsc);
-app.post("/voto/positivo/:id", validateAuth, postPositiveVote);
-app.post("/voto/negativo/:id", validateAuth, postNegativeVote);
+app.post("/posts/:id/like", validateAuth, postPositiveVote);
+app.post("/posts/:id/dislike", validateAuth, postNegativeVote);
 
 // Endpoints de los posts
 app.get("/posts", getPostsFilter);
 app.get("/posts/:id", getPost);
-app.get("/posts", validateAuth, getPosts);
-app.post("/post", validateAuth, createPost);
+app.post("/posts", validateAuth, createPost);
 app.delete("/posts/:id", validateAuth, deletePost);
 
 // Endpoints de los usuarios
+app.get("/usuarios/:id/posts", validateAuth, getPostsByUser);
 app.post("/usuarios", createUser);
-app.post("/login", loginUser);
+app.post("/usuarios/login", loginUser);
 app.put("/usuarios", validateAuth, editUser);
-app.put("/imgusuario", validateAuth, editUserImg);
+app.put("/usuarios/avatar", validateAuth, editUserImg);
+app.get("/usuarios", validateAuth, getUserLogged);
 
 // Endpoints de los comentarios
-app.post("/comentario/:id", validateAuth, postComent);
-app.get("/comentarios/:id", getComment);
+app.post("/posts/:id/comentarios", validateAuth, postComent);
+app.get("/posts/:id/comentarios", getComment);
 
 // Middlware 404. Solo las peticiones que no coincidan con ningún endpoint van a llegar aquí
 app.use(notFound);

@@ -29,6 +29,17 @@ const selectPostsFilter = async (queryParams) => {
   // Le pasamos a pool.query la consulta de sql que hemos ido creando y el array de valores que sustituyen los interrogantes
   const [posts] = await pool.query(sqlQuery, values);
 
+  // recorremos los posts para agregarle las fotos
+  for (const post of posts) {
+    const [photos] = await pool.query(
+      `SELECT id, nombre FROM ${DATABASE_NAME}.img_post WHERE id_post = ?`,
+      [post.id]
+    );
+
+    // creamos la propiedad images en el post
+    post.images = photos;
+  }
+
   return posts;
 };
 

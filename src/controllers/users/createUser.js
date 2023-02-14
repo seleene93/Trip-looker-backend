@@ -7,7 +7,7 @@ const {
   selectUserByDni,
 } = require("../../repositories/users");
 const { createUserSchema } = require("../../schemas/users");
-const { generateError } = require("../../utils");
+const { generateError, saveImg } = require("../../utils");
 
 const createUser = async (req, res, next) => {
   try {
@@ -37,6 +37,14 @@ const createUser = async (req, res, next) => {
       generateError("Ya existe un usuario con ese dni", 400);
     }
 
+    // Las imágenes que envía el cliente en la petición las vamos a recoger en req.files.images. Si el cliente no envía ninguna imagen,
+    // req.files va a ser undefined. Creamos una variable "images" donde guardamos req.files.images, o en caso de que no haya ninguna imagen, un objeto vacío
+    let avatarName;
+
+    if (req.files?.avatar) {
+      avatarName = await saveImg(req.files.avatar, 100);
+    }
+
     // Llamamos al respositorio para que introduzca en la DB todos los datos del usuario
     const insertedUserId = await insertUser({
       nombre,
@@ -46,21 +54,12 @@ const createUser = async (req, res, next) => {
       dni,
       encryptedPassword,
       fecha_nac,
+      avatarName,
     });
-
-    // Las imágenes que envía el cliente en la petición las vamos a recoger en req.files.images. Si el cliente no envía ninguna imagen,
-    // req.files va a ser undefined. Creamos una variable "images" donde guardamos req.files.images, o en caso de que no haya ninguna imagen, un objeto vacío
-    let img = req.files?.img || {};
-
-    const insertedImageId = await insertImgUser(
-      img.name,
-      img.data,
-      insertedUserId
-    );
 
     res.status(201).send({
       status: "ok",
-      data: { id: insertedUserId, nombre, email, imageId: insertedImageId },
+      data: { id: insertedUserId, nombre, email },
     });
   } catch (error) {
     next(error);

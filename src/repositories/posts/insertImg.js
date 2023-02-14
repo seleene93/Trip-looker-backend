@@ -3,12 +3,12 @@ require("dotenv").config();
 
 const { DATABASE_NAME } = process.env;
 
-const insertImg = async (nombre, img, idPost) => {
+const insertImg = async (nombre, idPost) => {
   const pool = getPool();
 
   const [{ insertId }] = await pool.query(
-    `INSERT INTO ${DATABASE_NAME}.img_post (nombre, img, id_post) VALUES (?, ?, ?)`,
-    [nombre, img, idPost]
+    `INSERT INTO ${DATABASE_NAME}.img_post (nombre, id_post) VALUES (?, ?)`,
+    [nombre, idPost]
   );
 
   return insertId;

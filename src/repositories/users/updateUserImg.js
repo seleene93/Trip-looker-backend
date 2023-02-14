@@ -3,16 +3,13 @@ require("dotenv").config();
 
 const { DATABASE_NAME } = process.env;
 
-const updateUserImg = async (image, idUsuario) => {
-  // Recogemos el nombre, dato e id usuario del objeto con los datos del usuario actualizados
-  const { name, data } = image;
-
+const updateUserImg = async (avatarName, idUsuario) => {
   const pool = getPool();
 
   // ACtualizamos en la DB los datos del post
   await pool.query(
-    `UPDATE ${DATABASE_NAME}.img_usuario SET nombre = ?, img = ? WHERE id_usuario = ?`,
-    [name, data, idUsuario]
+    `UPDATE ${DATABASE_NAME}.usuarios SET avatar = ? WHERE id = ?`,
+    [avatarName, idUsuario]
   );
 };
 

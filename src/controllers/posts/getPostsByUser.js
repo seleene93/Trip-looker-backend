@@ -1,6 +1,6 @@
 const { selectPostsByIdUser } = require("../../repositories/posts");
 
-const getPosts = async (req, res, next) => {
+const getPostsByUser = async (req, res, next) => {
   try {
     // Recogemos el id del usuario logueado acceciendo a req.auth.id
     const idUsuario = req.auth.id;
@@ -18,4 +18,4 @@ const getPosts = async (req, res, next) => {
   }
 };
 
-module.exports = getPosts;
+module.exports = getPostsByUser;

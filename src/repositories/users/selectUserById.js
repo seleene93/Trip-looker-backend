@@ -1,4 +1,5 @@
 const getPool = require("../../database/getPool");
+const { generateError } = require("../../utils");
 require("dotenv").config();
 
 const { DATABASE_NAME } = process.env;
@@ -11,6 +12,9 @@ const selectUserById = async (id) => {
     [id]
   );
 
+  if (!usuario) {
+    generateError("Usuario no encontrado", 404);
+  }
   return usuario;
 };
 

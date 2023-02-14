@@ -1,0 +1,563 @@
+{
+	"info": {
+		"_postman_id": "821b3f26-bd0e-41a3-be1d-28a0dc4d1cda",
+		"name": "trip_looker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24930731"
+	},
+	"item": [
+		{
+			"name": "usuarios",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/sely_/Pictures/Captura.PNG"
+								},
+								{
+									"key": "nombre",
+									"value": "Selene",
+									"type": "text"
+								},
+								{
+									"key": "apellidos",
+									"value": "Gomez Becerra",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "maria3333@email.com",
+									"type": "text"
+								},
+								{
+									"key": "ciudad",
+									"value": "Madrid",
+									"type": "text"
+								},
+								{
+									"key": "dni",
+									"value": "78060005-L",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"type": "text"
+								},
+								{
+									"key": "fecha_nac",
+									"value": "2005-01-03",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcyODQyMzY0LCJleHAiOjE2NzU0MzQzNjR9.28z7qQ8dGZykxZBE9U1lLcoUs8GEfyEKMm9jZNuekeM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"maria@email.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjczMjA3ODk2LCJleHAiOjE2NzU3OTk4OTZ9.XFkH_5vchshs9zOgvy4WQWmDVJpzq2WWHaPeYnA6Nq4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ciudad\": \"Caceres\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar imagen user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc1NzAyODU2LCJleHAiOjE2NzgyOTQ4NTZ9.GA0u-ThW8RFV-uYc6PlTerE4wQxR0feAfzkknZTjYb8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "img",
+									"type": "file",
+									"src": "/C:/Users/sely_/Pictures/CapturaTL2.PNG"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/usuarios/avatar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"avatar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get usuario login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2MjIwNzQwLCJleHAiOjE2Nzg4MTI3NDB9.Xn_5Unkid4epiPvkTf24mhq8Tw2ozotr2mki_8ZBxfA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": [
+				{
+					"name": "Get posts filtrados",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts?categoria=ocio&lugar=Madrid",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts"
+							],
+							"query": [
+								{
+									"key": "categoria",
+									"value": "ocio"
+								},
+								{
+									"key": "lugar",
+									"value": "Madrid"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get post por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user posts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc1NzAwMjkyLCJleHAiOjE2NzgyOTIyOTJ9.tgunpy5l3dqPmW7CLGjrQqQ10h4HuhHtfgdTuBRxNgc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/usuarios/1/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuarios",
+								"1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get comentarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/1/comentarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"1",
+								"comentarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post voto positivo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2Mzc0OTc1LCJleHAiOjE2Nzg5NjY5NzV9.k3galzG2kdo1sDw24YzpixHHIqpC0F9zOHv4wYODQoM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/1/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"1",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post voto negativo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2Mzc0OTc1LCJleHAiOjE2Nzg5NjY5NzV9.k3galzG2kdo1sDw24YzpixHHIqpC0F9zOHv4wYODQoM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/posts/1/dislike",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"1",
+								"dislike"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjc2Mzc0OTc1LCJleHAiOjE2Nzg5NjY5NzV9.k3galzG2kdo1sDw24YzpixHHIqpC0F9zOHv4wYODQoM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/sely_/Pictures/paraguas.png"
+								},
+								{
+									"key": "titulo",
+									"value": "Prueba",
+									"type": "text"
+								},
+								{
+									"key": "categoria",
+									"value": "ocio",
+									"type": "text"
+								},
+								{
+									"key": "lugar",
+									"value": "Madrid",
+									"type": "text"
+								},
+								{
+									"key": "entradilla",
+									"value": "Prueba de entradilla",
+									"type": "text"
+								},
+								{
+									"key": "texto",
+									"value": "Texto de prueba",
+									"type": "text"
+								},
+								{
+									"key": "id_usuario",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post comentario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjczMjA0MjM4LCJleHAiOjE2NzU3OTYyMzh9.A5frHXbFPlj5kAgXtw-TS8ZNawrE0Y-TjH0FYXCzhNs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comentario\": \"No está mal\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/posts/1/comentarios",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"posts",
+								"1",
+								"comentarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete post",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/posts/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get votos asc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/votos/asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"votos",
+						"asc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get votos desc",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/votos/desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"votos",
+						"desc"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

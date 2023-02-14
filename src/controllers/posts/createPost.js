@@ -1,5 +1,6 @@
 const { insertPost, insertImg } = require("../../repositories/posts");
 const { createPostSchema } = require("../../schemas/posts");
+const { saveImg } = require("../../utils");
 
 const createPost = async (req, res, next) => {
   try {
@@ -22,35 +23,25 @@ const createPost = async (req, res, next) => {
       idUsuario,
     });
 
-    // Las imágenes que envía el cliente en la petición las vamos a recoger en req.files.images. Si el cliente no envía ninguna imagen,
-    // req.files va a ser undefined. Creamos una variable "images" donde guardamos req.files.images, o en caso de que no haya ninguna imagen, un array vacío
-    let images = req.files?.images || [];
+    // array que almacenará las img del post (si las hay)
+    let images = [];
 
-    // Si el cliente solo envía una imagen, req.files.images va a ser un objeto en vez de un array. Si images no es un array (es decir, si es un objeto),
-    // convertimos images a un array que tiene el objeto dentro. Esto lo hacemos para que el bucle que hacemos mas abajo no rompa (ya que no puedes recorrer un objeto con un for of)
-    if (!Array.isArray(images)) {
-      images = [images];
-    }
+    // si existe req.files guardamos las fotos en la carpeta de subida de archivos
+    if (req.files) {
+      // obtenemos un array con las fotos y por si las moscas nos quedamos exclusivamente nos quedamos con las 5 primeras posiciones del array
+      const listOfPhotos = Object.values(req.files).slice(0, 5);
 
-    // Creamos un array "uploadedImages" donde guardaremos la información de las fotos que sube el cliente. Este array luego se lo mandaremos en la respuesta,
-    // para que pueda ver los datos de las fotos que se han subido
-    const uploadedImages = [];
+      // recorremos las imagenes
+      for (const img of listOfPhotos) {
+        const photoName = await saveImg(img, 500);
 
-    // Recorremos cada imagen del array de images
-    for (const image of images) {
-      // Insertamos la información de la imagen en la DB. El repositorio nos retorna el id de la imagen insertada
-      const insertedImageId = await insertImg(
-        image.name,
-        image.data,
-        insertedPostId
-      );
+        const insertedPhotoId = await insertImg(photoName, insertedPostId);
 
-      // Metemos en el array de "uploadedImages" un objeto con la información de la imagen guardada e insertada en la DB
-      uploadedImages.push({
-        id: insertedImageId,
-        imageName: image.name,
-        imageData: image.data,
-      });
+        images.push({
+          id: insertedPhotoId,
+          name: photoName,
+        });
+      }
     }
 
     // Enviamos una respuesta con status 201 y los datos del post creado (incluidas las imágenes que se han subido)
@@ -64,7 +55,7 @@ const createPost = async (req, res, next) => {
         entradilla,
         texto,
         idUsuario,
-        images: uploadedImages,
+        images,
       },
     });
   } catch (error) {

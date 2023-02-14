@@ -12,13 +12,23 @@ const insertUser = async (user) => {
     dni,
     encryptedPassword,
     fecha_nac,
+    avatarName,
   } = user;
 
   const pool = getPool();
 
   const [{ insertId }] = await pool.query(
-    `INSERT INTO ${DATABASE_NAME}.usuarios (nombre, apellidos, email, ciudad, dni, password, fecha_nac) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-    [nombre, apellidos, email, ciudad, dni, encryptedPassword, fecha_nac]
+    `INSERT INTO ${DATABASE_NAME}.usuarios (nombre, apellidos, email, ciudad, dni, password, fecha_nac, avatar) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+    [
+      nombre,
+      apellidos,
+      email,
+      ciudad,
+      dni,
+      encryptedPassword,
+      fecha_nac,
+      avatarName,
+    ]
   );
 
   return insertId;
