@@ -60,3 +60,17 @@ CREATE TABLE votos (
 		ON DELETE CASCADE
 		ON UPDATE CASCADE
 );
+
+CREATE TABLE comentarios (
+          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+          comentario VARCHAR(500),
+          id_post INT UNSIGNED NOT NULL,
+          id_usuario INT UNSIGNED NOT NULL,
+          FOREIGN KEY (id_post) REFERENCES posts (id) 
+          ON DELETE CASCADE 
+          ON UPDATE CASCADE,
+          FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
+          ON DELETE CASCADE 
+          ON UPDATE CASCADE
+);
+  
