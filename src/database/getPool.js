@@ -2,7 +2,7 @@ const mysql = require("mysql2/promise");
 const path = require("path");
 const dotenv = require("dotenv");
 
-dotenv.config({ path: path.join(__dirname, "./../../.env") });
+dotenv.config();
 
 // Nos traemos los datos de la DB del .env
 const {
@@ -17,27 +17,32 @@ let pool;
 // Cuando llamemos a la función getPool, si no existe un pool todavía y DATABASE_NAME es undefined, crea uno y nos los da. Si ya existe, nos los da directamente
 
 const getPool = () => {
-  if (!pool && !process.env.DATABASE_NAME) {
-    pool = mysql.createPool({
-      connectionLimit: 10,
-      host: DATABASE_HOST,
-      port: DATABASE_PORT,
-      user: DATABASE_USER,
-      password: DATABASE_PASSWORD,
-      database: DATABASE_NAME,
-      timezone: "Z",
-    });
-  } else if (!pool) {
-    pool = mysql.createPool({
-      connectionLimit: 10,
-      host: DATABASE_HOST,
-      port: DATABASE_PORT,
-      user: DATABASE_USER,
-      password: DATABASE_PASSWORD,
-      timezone: "Z",
-    });
+  try {
+    if (!pool && !process.env.DATABASE_NAME) {
+      pool = mysql.createPool({
+        connectionLimit: 10,
+        host: DATABASE_HOST,
+        user: DATABASE_USER,
+        port: DATABASE_PORT,
+        password: DATABASE_PASSWORD,
+        database: DATABASE_NAME,
+        timezone: "Z",
+      });
+    } else if (!pool) {
+      pool = mysql.createPool({
+        connectionLimit: 10,
+        host: DATABASE_HOST,
+        user: DATABASE_USER,
+        port: DATABASE_PORT,
+        password: DATABASE_PASSWORD,
+        timezone: "Z",
+      });
+    }
+
+    return pool;
+  } catch (error) {
+    console.error(error);
   }
-  return pool;
 };
 
 module.exports = getPool;
