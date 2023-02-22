@@ -13,17 +13,7 @@ CREATE TABLE usuarios (
         password VARCHAR(100) NOT NULL,
         fecha_nac DATE NOT NULL
 	    );
-  
-CREATE TABLE img_usuario (
-          id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          nombre VARCHAR(100) NOT NULL,
-          img LONGBLOB NOT NULL,
-          id_usuario INT UNSIGNED NOT NULL,
-          FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
-          ON DELETE CASCADE 
-          ON UPDATE CASCADE
-          );
-        
+
 CREATE TABLE posts (
         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
         titulo VARCHAR(50) NOT NULL,

@@ -38,6 +38,9 @@ const createUserSchema = Joi.object({
     "date.less": "Debes ser mayor de edad para registrarte",
     "any.required": "La fecha de nacimiento es obligatoria",
   }),
+  avatar: Joi.object({
+    type: Joi.string().valid("image/png", "image/jpeg"),
+  }),
 });
 
 module.exports = createUserSchema;

@@ -30,17 +30,31 @@ const createPost = async (req, res, next) => {
     if (req.files) {
       // obtenemos un array con las fotos y por si las moscas nos quedamos exclusivamente nos quedamos con las 5 primeras posiciones del array
       const listOfPhotos = Object.values(req.files).slice(0, 5);
+      let [imagesArray] = listOfPhotos;
 
-      // recorremos las imagenes
-      for (const img of listOfPhotos) {
-        const photoName = await saveImg(img, 500);
+      if (imagesArray.length > 1) {
+        for (const img of imagesArray) {
+          const photoName = await saveImg(img, 500);
 
-        const insertedPhotoId = await insertImg(photoName, insertedPostId);
+          const insertedPhotoId = await insertImg(photoName, insertedPostId);
 
-        images.push({
-          id: insertedPhotoId,
-          name: photoName,
-        });
+          images.push({
+            id: insertedPhotoId,
+            name: photoName,
+          });
+        }
+      } else {
+        // Recorremos las imágenes
+        for (const img of listOfPhotos) {
+          const photoName = await saveImg(img, 500);
+
+          const insertedPhotoId = await insertImg(photoName, insertedPostId);
+
+          images.push({
+            id: insertedPhotoId,
+            name: photoName,
+          });
+        }
       }
     }
 
