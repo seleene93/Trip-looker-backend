@@ -1,9 +1,7 @@
 const bcrypt = require("bcrypt");
-// const uuid = require("uuid");
 const {
   selectUserByEmail,
   insertUser,
-  insertImgUser,
   selectUserByDni,
 } = require("../../repositories/users");
 const { createUserSchema } = require("../../schemas/users");
@@ -40,6 +38,7 @@ const createUser = async (req, res, next) => {
     // Las imágenes que envía el cliente en la petición las vamos a recoger en req.files.images. Si el cliente no envía ninguna imagen,
     // req.files va a ser undefined. Creamos una variable "images" donde guardamos req.files.images, o en caso de que no haya ninguna imagen, un objeto vacío
     let avatarName;
+    console.log(req.files.avatar);
 
     if (req.files?.avatar) {
       avatarName = await saveImg(req.files.avatar, 100);

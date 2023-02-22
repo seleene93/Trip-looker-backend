@@ -43,7 +43,7 @@ const initDb = async () => {
       CREATE TABLE posts (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
           titulo VARCHAR(50) NOT NULL,
-          categoria ENUM('ocio', 'cultural', 'expedición', 'romantico', 'otro') DEFAULT 'otro',
+          categoria ENUM('ocio', 'cultural', 'expedicion', 'romantico', 'otro') DEFAULT 'otro',
           lugar VARCHAR(80) NOT NULL,
           entradilla VARCHAR(500),
           texto VARCHAR(5000),
