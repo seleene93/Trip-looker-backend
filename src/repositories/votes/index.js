@@ -1,11 +1,17 @@
 const selectVotesDesc = require("./selectVotesDesc");
 const selectVotesAsc = require("./selectVotesAsc");
-const insertPositiveVote = require("./insertPositiveVote");
-const insertNegativeVote = require("./insertNegativeVote");
+const insertVote = require("./insertVote");
+const selectPostVotes = require("./selectPostVotes");
+const selectPositiveVoteIfExists = require("./selectPositiveVotes");
+const selectNegativeVoteIfExists = require("./selectNegativeVotes");
+const deleteVoteById = require("./deleteVoteById");
 
 module.exports = {
+  selectPositiveVoteIfExists,
+  selectNegativeVoteIfExists,
   selectVotesDesc,
   selectVotesAsc,
-  insertPositiveVote,
-  insertNegativeVote,
+  selectPostVotes,
+  insertVote,
+  deleteVoteById,
 };

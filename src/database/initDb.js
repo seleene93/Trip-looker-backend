@@ -30,7 +30,6 @@ const initDb = async () => {
           apellidos VARCHAR(100) NOT NULL,
           email VARCHAR(100) NOT NULL UNIQUE,
           ciudad VARCHAR(50) NOT NULL,
-          dni CHAR(10) NOT NULL UNIQUE,
           avatar VARCHAR(50),
           password VARCHAR(100) NOT NULL,
           fecha_nac DATE NOT NULL
@@ -42,11 +41,11 @@ const initDb = async () => {
     await pool.query(`
       CREATE TABLE posts (
           id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-          titulo VARCHAR(50) NOT NULL,
+          titulo VARCHAR(25) NOT NULL,
           categoria ENUM('ocio', 'cultural', 'expedicion', 'romantico', 'otro') DEFAULT 'otro',
-          lugar VARCHAR(80) NOT NULL,
-          entradilla VARCHAR(500),
-          texto VARCHAR(5000),
+          lugar VARCHAR(20) NOT NULL,
+          entradilla VARCHAR(35),
+          texto VARCHAR(1700),
           id_usuario INT UNSIGNED NOT NULL,
           FOREIGN KEY (id_usuario) REFERENCES usuarios (id) 
           ON DELETE CASCADE

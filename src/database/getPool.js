@@ -1,8 +1,8 @@
 const mysql = require("mysql2/promise");
-const path = require("path");
 const dotenv = require("dotenv");
+const path = require("path");
 
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, "./../../.env") });
 
 // Nos traemos los datos de la DB del .env
 const {

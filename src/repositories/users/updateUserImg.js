@@ -6,7 +6,7 @@ const { DATABASE_NAME } = process.env;
 const updateUserImg = async (avatarName, idUsuario) => {
   const pool = getPool();
 
-  // ACtualizamos en la DB los datos del post
+  // Actualizamos en la DB los datos del post
   await pool.query(
     `UPDATE ${DATABASE_NAME}.usuarios SET avatar = ? WHERE id = ?`,
     [avatarName, idUsuario]

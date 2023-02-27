@@ -25,8 +25,8 @@ const {
 const {
   getVotesDesc,
   getVotesAsc,
-  postPositiveVote,
-  postNegativeVote,
+  // deleteVote,
+  postVote,
 } = require("./controllers/votes");
 
 // Requerimos el controller de los comentarios
@@ -49,8 +49,7 @@ app.use(express.static(process.env.UPLOADS_DIR));
 // Endpoints de los votos
 app.get("/votos/desc", getVotesDesc);
 app.get("/votos/asc", getVotesAsc);
-app.post("/posts/:id/like", validateAuth, postPositiveVote);
-app.post("/posts/:id/dislike", validateAuth, postNegativeVote);
+app.post("/posts/:id/votar", validateAuth, postVote);
 
 // Endpoints de los posts
 app.get("/posts", getPostsFilter);

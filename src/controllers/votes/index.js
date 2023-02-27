@@ -1,11 +1,9 @@
 const getVotesDesc = require("./getVotesDesc");
 const getVotesAsc = require("./getVotesAsc");
-const postPositiveVote = require("./postPositiveVote");
-const postNegativeVote = require("./postNegativeVote");
+const postVote = require("./votePost");
 
 module.exports = {
   getVotesDesc,
   getVotesAsc,
-  postPositiveVote,
-  postNegativeVote,
+  postVote,
 };

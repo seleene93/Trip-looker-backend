@@ -10,7 +10,7 @@ const createUserSchema = Joi.object({
     "string.max": "El nombre no pueden contener más de 20 caracteres",
     "any.required": "El nombre es obligatorio",
   }),
-  apellidos: Joi.string().min(10).max(100).required().messages({
+  apellidos: Joi.string().min(4).max(100).required().messages({
     "string.min": "Los apellidos deben tener como mínimo 10 caracteres",
     "string.max": "Los apellidos no pueden contener más de 100 caracteres",
     "any.required": "Los apellidos son obligatorios",
@@ -25,11 +25,6 @@ const createUserSchema = Joi.object({
     "string.max": "Ciudad no puede contener más de 20 caracteres",
     "any.required": "Ciudad es obligatorio",
   }),
-  dni: Joi.string().min(10).max(10).required().messages({
-    "string.min": "El dni debe contener 10 caracteres",
-    "string.max": "El dni no puede contener más de 10 caracteres",
-    "any.required": "El dni es obligatorio",
-  }),
   password: Joi.string().min(5).max(100).required().messages({
     "string.min": "La contraseña debe contener como mínimo 5 caracteres",
     "any.required": "La contraseña es obligatoria",
@@ -37,9 +32,6 @@ const createUserSchema = Joi.object({
   fecha_nac: Joi.date().less(date).required().messages({
     "date.less": "Debes ser mayor de edad para registrarte",
     "any.required": "La fecha de nacimiento es obligatoria",
-  }),
-  avatar: Joi.object({
-    type: Joi.string().valid("image/png", "image/jpeg"),
   }),
 });
 

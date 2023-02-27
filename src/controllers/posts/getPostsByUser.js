@@ -1,11 +1,12 @@
 const { selectPostsByIdUser } = require("../../repositories/posts");
+const { generateError } = require("../../utils");
 
 const getPostsByUser = async (req, res, next) => {
   try {
     // Recogemos el id del usuario logueado acceciendo a req.auth.id
     const idUsuario = req.auth.id;
 
-    // Nos traemos los posts ya filtrados con el id que indique el cliente
+    // Nos traemos los posts ya filtrados del usuario loggeado
     const posts = await selectPostsByIdUser(idUsuario);
 
     if (posts.length < 1) {

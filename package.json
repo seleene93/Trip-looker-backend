@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "chalk": "^4.1.2",
+    "eslint": "^8.34.0",
     "nodemon": "^2.0.20"
   }
 }

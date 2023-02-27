@@ -31,12 +31,17 @@ const selectPostsFilter = async (queryParams) => {
 
   // recorremos los posts para agregarle las fotos
   for (const post of posts) {
+    const [votes] = await pool.query(
+      `SELECT SUM(voto_positivo) AS voto_positivo, SUM(voto_negativo) AS voto_negativo FROM ${DATABASE_NAME}.votos WHERE id_post = ?`,
+      [post.id]
+    );
     const [photos] = await pool.query(
       `SELECT id, nombre FROM ${DATABASE_NAME}.img_post WHERE id_post = ?`,
       [post.id]
     );
 
     // creamos la propiedad images en el post
+    post.votos = votes;
     post.images = photos;
   }
 

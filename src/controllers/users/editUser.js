@@ -7,10 +7,10 @@ const editUser = async (req, res, next) => {
     // Recogemos el id del usuario logueado acceciendo a req.auth.id
     const idUsuario = req.auth.id;
 
-    // Llamamos al respositorio para seleccionar el post con dicho id de la DB
+    // Llamamos al respositorio para seleccionar el usuario loggeado
     const usuario = await selectUserById(idUsuario);
 
-    // Validamos el body de la petición para ver si cumple los requisitos establecidos en el createPostSchama (el cliente debe haber mandado por lo menos título o descripción)
+    // Validamos el body de la petición para ver si cumple los requisitos establecidos en el createPostSchema
     await editUserSchema.validateAsync(req.body);
 
     // Encriptamos la contraseña del usuario

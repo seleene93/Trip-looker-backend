@@ -12,7 +12,6 @@ const postComent = async (req, res, next) => {
 
     // Recogemos el comentario del body
     const { comentario } = req.body;
-    console.log(comentario);
 
     // Seleccionamos el post ya filtrado de la base de datos
     const post = await selectPostsFilter(req.params);

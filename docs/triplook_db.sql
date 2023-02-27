@@ -9,7 +9,6 @@ CREATE TABLE usuarios (
           apellidos VARCHAR(100) NOT NULL,
           email VARCHAR(100) NOT NULL UNIQUE,
           ciudad VARCHAR(50) NOT NULL,
-          dni CHAR(10) NOT NULL UNIQUE,
           avatar VARCHAR(50),
           password VARCHAR(100) NOT NULL,
           fecha_nac DATE NOT NULL

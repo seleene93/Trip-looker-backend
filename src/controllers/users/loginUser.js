@@ -40,8 +40,6 @@ const loginUser = async (req, res, next) => {
       expiresIn: "30d",
     });
 
-    console.log(token);
-
     // Enviamos el token generado al cliente
     res.status(200).send({ status: "ok", data: { token } });
   } catch (error) {

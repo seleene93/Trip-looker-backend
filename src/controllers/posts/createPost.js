@@ -23,16 +23,18 @@ const createPost = async (req, res, next) => {
       idUsuario,
     });
 
-    // array que almacenará las img del post (si las hay)
+    // Array que almacenará las img del post (si las hay)
     let images = [];
 
-    // si existe req.files guardamos las fotos en la carpeta de subida de archivos
+    // Si existe req.files guardamos las fotos en la carpeta de subida de archivos
     if (req.files) {
-      // obtenemos un array con las fotos y por si las moscas nos quedamos exclusivamente nos quedamos con las 5 primeras posiciones del array
+      // Obtenemos un array con las fotos y por si las moscas nos quedamos exclusivamente con las 5 primeras posiciones del array
       const listOfPhotos = Object.values(req.files).slice(0, 5);
       let [imagesArray] = listOfPhotos;
 
+      // Si hay más de una imágen
       if (imagesArray.length > 1) {
+        // recorremos el array para guardar, redimensionar e insertar el nombre de cada imagen con su id en la BBDD
         for (const img of imagesArray) {
           const photoName = await saveImg(img, 500);
 
@@ -44,7 +46,7 @@ const createPost = async (req, res, next) => {
           });
         }
       } else {
-        // Recorremos las imágenes
+        // Si el usuario manda una
         for (const img of listOfPhotos) {
           const photoName = await saveImg(img, 500);
 

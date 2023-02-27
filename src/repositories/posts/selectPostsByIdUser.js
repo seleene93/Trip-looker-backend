@@ -16,7 +16,7 @@ const selectPostsByIdUser = async (idUser) => {
       `SELECT id, nombre FROM ${DATABASE_NAME}.img_post WHERE id_post = ?`,
       [post.id]
     );
-
+    // Posts va a tener la propiedad images con las imagenes que contenga.
     post.images = photos;
   }
 
