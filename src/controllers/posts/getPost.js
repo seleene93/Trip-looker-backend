@@ -1,4 +1,4 @@
-const { selectPostsFilter } = require("../../repositories/posts");
+const { selectPostById } = require("../../repositories/posts");
 const { generateError } = require("../../utils");
 const { postIdSchema } = require("../../schemas/posts");
 
@@ -11,13 +11,13 @@ const getPost = async (req, res, next) => {
     await postIdSchema.validateAsync(id);
 
     // Nos traemos los posts ya filtrados con el id que indique el cliente
-    const posts = await selectPostsFilter(req.params);
+    const post = await selectPostById(id);
 
-    if (posts.length < 1) {
+    if (post.length < 1) {
       throw generateError("No se ha encontrado el post", 404);
     }
 
-    res.status(200).send({ status: "ok", data: posts });
+    res.status(200).send({ status: "ok", data: post });
   } catch (error) {
     next(error);
   }

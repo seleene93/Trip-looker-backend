@@ -12,11 +12,19 @@ const selectPostsByIdUser = async (idUser) => {
   );
 
   for (const post of posts) {
+    const [votes] = await pool.query(
+      `SELECT IFNULL(SUM(voto_positivo), 0) AS positivo, IFNULL(SUM(voto_negativo), 0) AS negativo FROM ${DATABASE_NAME}.votos WHERE id_post = ?`,
+      [post.id]
+    );
     const [photos] = await pool.query(
       `SELECT id, nombre FROM ${DATABASE_NAME}.img_post WHERE id_post = ?`,
       [post.id]
     );
     // Posts va a tener la propiedad images con las imagenes que contenga.
+    post.votos = {
+      positivo: votes[0].positivo,
+      negativo: votes[0].negativo,
+    };
     post.images = photos;
   }
 

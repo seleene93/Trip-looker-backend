@@ -22,19 +22,19 @@ const {
 } = require("./controllers/users");
 
 // Requerimos los controllers de los votos
-const {
-  getVotesDesc,
-  getVotesAsc,
-  // deleteVote,
-  postVote,
-} = require("./controllers/votes");
+const { getVotesDesc, getVotesAsc, postVote } = require("./controllers/votes");
 
 // Requerimos el controller de los comentarios
 const { postComent } = require("./controllers/comments");
 const { getComment } = require("./controllers/comments");
 
 // Requerimos los middlewares
-const { Errors, notFound, validateAuth } = require("./middlewares");
+const {
+  Errors,
+  notFound,
+  validateAuth,
+  validateAuthOptional,
+} = require("./middlewares");
 
 const app = express();
 
@@ -47,12 +47,12 @@ app.use(express.json());
 app.use(express.static(process.env.UPLOADS_DIR));
 
 // Endpoints de los votos
-app.get("/votos/desc", getVotesDesc);
-app.get("/votos/asc", getVotesAsc);
+app.get("/votos/desc", validateAuthOptional, getVotesDesc);
+app.get("/votos/asc", validateAuthOptional, getVotesAsc);
 app.post("/posts/:id/votar", validateAuth, postVote);
 
 // Endpoints de los posts
-app.get("/posts", getPostsFilter);
+app.get("/posts", validateAuthOptional, getPostsFilter);
 app.get("/posts/:id", getPost);
 app.post("/posts", validateAuth, createPost);
 app.delete("/posts/:id", validateAuth, deletePost);
