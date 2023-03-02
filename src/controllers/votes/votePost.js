@@ -24,7 +24,7 @@ const postVote = async (req, res, next) => {
     await postVoteSchema.validateAsync(voto);
 
     // Seleccionamos el post ya filtrado de la base de datos
-    const post = await selectPostsFilter(req.params);
+    const post = await selectPostsFilter(req.params, idUsuario);
 
     if (post.length < 1) {
       generateError("El post que estás intentando votar no existe", 404);
@@ -35,22 +35,34 @@ const postVote = async (req, res, next) => {
 
     const votoNegativo = await selectNegativeVoteIfExists(idUsuario, idPost);
 
+    // Mensaje que indica el tipo de accin que acabamos de realizar.
+    let message;
+
     if (votoPositivo === 0 && votoNegativo === 0) {
+      if (voto === "positivo") {
+        message = "Voto positivo insertado";
+      } else {
+        message = "Voto negativo insertado";
+      }
       // Si no tiene un voto previo simplemente añadir el voto
       await insertVote(voto, idUsuario, idPost);
     } else if (votoPositivo === 1 && voto === "positivo") {
+      message = "Voto positivo eliminado";
       // Si tiene un voto previo:
       // - Si tiene un voto igual al que quiere votar borramos ese voto previo
       await deleteVoteById(idUsuario, idPost);
     } else if (votoPositivo === 1 && voto === "negativo") {
+      message = "Cambio de voto";
       // - Si es contrario al que quiere votar borramos ese voto previo y añadimos el nuevo voto
       await deleteVoteById(idUsuario, idPost);
       await insertVote(voto, idUsuario, idPost);
     } else if (votoNegativo === 1 && voto === "positivo") {
+      message = "Cambio de voto";
       // - Si es contrario al que quiere votar borramos ese voto previo y añadimos el nuevo voto
       await deleteVoteById(idUsuario, idPost);
       await insertVote(voto, idUsuario, idPost);
     } else {
+      message = "Voto negativo eliminado";
       // - Si tiene un voto igual al que quiere votar borramos ese voto previo
       await deleteVoteById(idUsuario, idPost);
     }
@@ -60,6 +72,7 @@ const postVote = async (req, res, next) => {
 
     res.send({
       status: "ok",
+      message,
       data: {
         recuento,
         idUsuario,

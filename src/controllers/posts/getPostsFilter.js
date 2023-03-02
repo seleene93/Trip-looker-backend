@@ -10,7 +10,7 @@ const getPostsFilter = async (req, res, next) => {
     await postFilterSchema.validateAsync(req.query);
 
     // obtenemos los posts filtrados
-    const posts = await selectPostsFilter(req.query);
+    const posts = await selectPostsFilter(req.query, req.auth?.id);
 
     if (posts.length < 1) {
       generateError("No hay resultados en tu búsqueda", 404);
