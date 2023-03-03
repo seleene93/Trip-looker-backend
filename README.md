@@ -1,4 +1,4 @@
-# Trip-looker
+# Trip-looker Backend
 
 > en la terminal del VS (o cualquier terminal)
 
@@ -12,12 +12,6 @@ npm install
 
 ```
 node src/database/initDb.js
-```
-
-> introducir datos de prueba en la DB
-
-```
-node src/database/populateDb.js
 ```
 
 > una vez hecho todo esto, solo quedaría iniciar el server

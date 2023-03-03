@@ -1,14 +1,8 @@
 const { selectVotesAsc } = require("../../repositories/votes");
-const { postFilterSchema } = require("../../schemas/posts");
 const { generateError } = require("../../utils");
 
 const getVotesAsc = async (req, res, next) => {
   try {
-    // Validamos lo que envia el cliente por query params
-    // (filtros por categoría y lugar)
-    // para ver si cumple con los requisitos establecidos en postFilterSchema
-    await postFilterSchema.validateAsync(req.query);
-
     // obtenemos los posts filtrados y en orden de votos ascendentes
     const posts = await selectVotesAsc(req.query, req.auth?.id);
 

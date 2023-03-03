@@ -1,16 +1,24 @@
 const { selectPostsFilter } = require("../../repositories/posts");
-const { postFilterSchema } = require("../../schemas/posts");
 const { generateError } = require("../../utils");
 
 const getPostsFilter = async (req, res, next) => {
   try {
-    // Validamos lo que envia el cliente por query params
-    // (filtros por categoría y lugar)
-    // para ver si cumple con los requisitos establecidos en postFilterSchema
-    await postFilterSchema.validateAsync(req.query);
+    let { lugar, categoria, direccion } = req.query;
+
+    // Si no hay lugar establecemos un string vacio por defecto.
+    lugar = lugar || "";
+    categoria = categoria || "";
+
+    // Si direccion viene vacio tendra por defecto el valor ASC.
+    direccion = direccion === "ASC" ? "ASC" : "DESC";
 
     // obtenemos los posts filtrados
-    const posts = await selectPostsFilter(req.query, req.auth?.id);
+    const posts = await selectPostsFilter({
+      lugar,
+      categoria,
+      direccion,
+      idUser: req.auth?.id,
+    });
 
     if (posts.length < 1) {
       generateError("No hay resultados en tu búsqueda", 404);

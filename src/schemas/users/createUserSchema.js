@@ -19,6 +19,7 @@ const createUserSchema = Joi.object({
     "string.min": "El email debe contener como mínimo 5 caracteres",
     "string.max": "El email no puede contener más de 100 caracteres",
     "any.required": "El email es obligatorio",
+    "string.email": "Introduce un email válido",
   }),
   ciudad: Joi.string().min(5).max(20).required().messages({
     "string.min": "Ciudad debe contener como mínimo 5 caracteres",
