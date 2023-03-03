@@ -5,7 +5,7 @@ const {
   selectNegativeVoteIfExists,
   deleteVoteById,
 } = require("../../repositories/votes");
-const { selectPostsFilter } = require("../../repositories/posts");
+const { selectPostById } = require("../../repositories/posts");
 const { generateError } = require("../../utils");
 const { postVoteSchema } = require("../../schemas/posts");
 
@@ -24,7 +24,7 @@ const postVote = async (req, res, next) => {
     await postVoteSchema.validateAsync(voto);
 
     // Seleccionamos el post ya filtrado de la base de datos
-    const post = await selectPostsFilter(req.params, idUsuario);
+    const post = await selectPostById(idPost);
 
     if (post.length < 1) {
       generateError("El post que estás intentando votar no existe", 404);
